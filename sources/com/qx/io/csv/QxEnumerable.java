@@ -1,4 +1,4 @@
-package com.qx.base;
+package com.qx.io.csv;
 
 import java.io.IOException;
 import java.io.InputStream;

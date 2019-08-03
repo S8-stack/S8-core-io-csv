@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.qx.base.QxScientificUnit;
+import com.qx.base.units.QxScientificUnit;
 
 public class EnumFieldMapping extends FieldMapping {
 

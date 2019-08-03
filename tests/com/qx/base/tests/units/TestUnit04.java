@@ -1,6 +1,6 @@
 package com.qx.base.tests.units;
 
-import com.qx.base.QxScientificUnit;
+import com.qx.base.units.QxScientificUnit;
 
 public class TestUnit04 {
 

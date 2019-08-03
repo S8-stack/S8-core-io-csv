@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.qx.base.QxScientificUnit;
+import com.qx.base.units.QxScientificUnit;
 import com.qx.io.csv.mapped.type.CSV_TypeHandler;
 import com.qx.io.csv.mapped.type.Setter;
 

@@ -1,6 +1,6 @@
 package com.qx.io.csv.mapped.type;
 
-import com.qx.base.QxScientificUnit;
+import com.qx.base.units.QxScientificUnit;
 
 public interface Getter {
 

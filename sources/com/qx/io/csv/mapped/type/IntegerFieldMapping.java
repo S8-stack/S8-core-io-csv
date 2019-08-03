@@ -2,7 +2,7 @@ package com.qx.io.csv.mapped.type;
 
 import java.lang.reflect.Field;
 
-import com.qx.base.QxScientificUnit;
+import com.qx.base.units.QxScientificUnit;
 
 
 public class IntegerFieldMapping extends FieldMapping {
