@@ -1,4 +1,4 @@
-package com.qx.base.units;
+package com.qx.base;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -2,7 +2,7 @@ package com.qx.io.csv.mapped.type;
 
 import java.lang.reflect.Field;
 
-import com.qx.base.enumerables.QxEnumerable;
+import com.qx.base.QxEnumerable;
 
 
 public abstract class FieldMapping implements Getter, Setter {

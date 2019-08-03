@@ -2,7 +2,7 @@ package com.qx.io.csv.mapped.type;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.qx.base.units.QxScientificUnit;
+import com.qx.base.QxScientificUnit;
 
 
 public interface Setter {

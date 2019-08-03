@@ -1,4 +1,4 @@
-package com.qx.base.enumerables;
+package com.qx.base;
 
 import java.io.IOException;
 import java.io.InputStream;
