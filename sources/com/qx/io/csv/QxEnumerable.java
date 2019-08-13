@@ -54,6 +54,7 @@ public abstract class QxEnumerable {
 
 		private void loadDoc(Class<?> type, String filename, Charset encoding) {
 			try {
+				
 				String pathname = type.getResource(filename).getPath();
 				Path path = Paths.get(pathname);
 				if(Files.exists(path)) {
