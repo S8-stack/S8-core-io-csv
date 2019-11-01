@@ -77,7 +77,7 @@ public class CSV_Document {
 
 			nbRows = rowList.size();
 			if(hasHeaders){
-				nbColumns = columnHeaders.getNumberOfCells();
+				nbColumns = columnHeaders.getNumberOfColumns();
 			}
 			else{
 				nbColumns = rowList.get(0).getNumberOfCells();

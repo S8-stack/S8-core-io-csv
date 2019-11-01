@@ -2,7 +2,7 @@ package com.qx.io.csv.mapped.type;
 
 import java.lang.reflect.Field;
 
-import com.qx.base.units.QxScientificUnit;
+import com.qx.base.units.SI_Unit;
 
 public class FloatFieldMapping extends FieldMapping {
 
@@ -11,14 +11,14 @@ public class FloatFieldMapping extends FieldMapping {
 	}
 
 	@Override
-	public void set(String value, Object object, QxScientificUnit unit)
+	public void set(String value, Object object, SI_Unit unit)
 			throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
-		field.setFloat(object, (float) unit.toIS(Float.valueOf(value)));
+		field.setFloat(object, (float) unit.convertBack(Float.valueOf(value)));
 	}
 
 	@Override
-	public String get(Object object, QxScientificUnit unit)
+	public String get(Object object, SI_Unit unit)
 			throws IllegalArgumentException, IllegalAccessException {
-		return Double.toString(unit.fromIS(field.getFloat(object)));
+		return Double.toString(unit.convert(field.getFloat(object)));
 	}
 }

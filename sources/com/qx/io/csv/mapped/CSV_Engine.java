@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.qx.base.units.QxScientificUnit;
+import com.qx.base.units.SI_Unit;
+import com.qx.base.units.SI_Unit.WrongUnitFormat;
 import com.qx.io.csv.mapped.type.CSV_TypeHandler;
 import com.qx.io.csv.mapped.type.Setter;
 
@@ -104,7 +105,7 @@ public class CSV_Engine<T> {
 					int n = headers.length;
 
 					Setter[] structure = new Setter[n];
-					QxScientificUnit[] units = new QxScientificUnit[n];
+					SI_Unit[] units = new SI_Unit[n];
 
 					String tag, unit;
 					for(int i=0; i<n; i++){
@@ -114,7 +115,7 @@ public class CSV_Engine<T> {
 						unit = matcher.group(3);
 						structure[i] = typeHandler.getSetter(tag);
 						if(unit!=null){
-							units[i] = new QxScientificUnit(unit);	
+							units[i] = new SI_Unit(unit);	
 						}
 					}
 
@@ -153,9 +154,8 @@ public class CSV_Engine<T> {
 
 					};
 
-				} catch (IOException e1) {
-
-					e1.printStackTrace();
+				} catch (IOException | WrongUnitFormat e) {
+					e.printStackTrace();
 					return null;
 				}
 			}

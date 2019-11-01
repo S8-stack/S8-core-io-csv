@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.qx.base.units.QxScientificUnit;
+import com.qx.base.units.SI_Unit;
 
 public class EnumFieldMapping extends FieldMapping {
 
@@ -23,7 +23,7 @@ public class EnumFieldMapping extends FieldMapping {
 	}
 
 	@Override
-	public void set(String value, Object object, QxScientificUnit unit)
+	public void set(String value, Object object, SI_Unit unit)
 			throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 		Object enumConstant = enumConstants.get(value);
 		if(enumConstant==null) {
@@ -34,7 +34,7 @@ public class EnumFieldMapping extends FieldMapping {
 	}
 
 	@Override
-	public String get(Object object, QxScientificUnit unit)
+	public String get(Object object, SI_Unit unit)
 			throws IllegalArgumentException, IllegalAccessException {
 		Object enumConstant = field.get(object);
 		return ((Enum<?>) enumConstant).name();

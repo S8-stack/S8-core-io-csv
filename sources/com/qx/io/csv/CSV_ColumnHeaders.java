@@ -27,7 +27,7 @@ public class CSV_ColumnHeaders {
 		}
 	}
 	
-	public int getNumberOfCells(){
+	public int getNumberOfColumns(){
 		return headers.length;
 	}
 	

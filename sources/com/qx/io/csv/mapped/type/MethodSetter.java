@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
-import com.qx.base.units.QxScientificUnit;
+import com.qx.base.units.SI_Unit;
 
 
 public abstract class MethodSetter implements Setter {
@@ -66,13 +66,13 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws
 				NumberFormatException,
 				IllegalArgumentException,
 				IllegalAccessException,
 				InvocationTargetException {
-			method.invoke(object, unit.toIS(Double.valueOf(value)));
+			method.invoke(object, unit.convertBack(Double.valueOf(value)));
 		}
 	}
 
@@ -83,12 +83,12 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws NumberFormatException,
 				IllegalArgumentException,
 				IllegalAccessException,
 				InvocationTargetException {
-			method.invoke(object, (float) unit.toIS(Double.valueOf(value)));
+			method.invoke(object, (float) unit.convertBack(Double.valueOf(value)));
 		}
 	}
 
@@ -99,7 +99,7 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws
 				NumberFormatException,
 				IllegalArgumentException,
@@ -116,7 +116,7 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws
 				NumberFormatException,
 				IllegalArgumentException,
@@ -133,7 +133,7 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws
 				NumberFormatException,
 				IllegalArgumentException, 
@@ -150,7 +150,7 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws
 				NumberFormatException,
 				IllegalArgumentException, 
@@ -167,7 +167,7 @@ public abstract class MethodSetter implements Setter {
 		}
 
 		@Override
-		public void set(String value, Object object, QxScientificUnit unit)
+		public void set(String value, Object object, SI_Unit unit)
 				throws 
 				NumberFormatException,
 				IllegalArgumentException,
