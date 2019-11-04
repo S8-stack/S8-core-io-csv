@@ -3,9 +3,9 @@ package com.qx.level0.io.csv.mapped.type;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-import com.qx.base.units.SI_Unit;
 import com.qx.level0.io.csv.QxEnumerable;
 import com.qx.level0.io.csv.QxEnumerable.Prototype;
+import com.qx.level0.utilities.units.SI_Unit;
 
 public class QxEnumerableFieldMapping extends FieldMapping {
 	

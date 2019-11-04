@@ -12,6 +12,6 @@ module com.qx.io.csv {
 	exports com.qx.level0.io.csv.mapped;
 	exports com.qx.level0.io.csv.mapped.type;
 	
-	requires transitive com.qx.base;
+	requires transitive com.qx.level0.utilities;
 
 }
