@@ -5,7 +5,7 @@
  * @author pc
  *
  */
-module com.qx.io.csv {
+module com.qx.level0.io.csv {
 	
 	exports com.qx.level0.io.csv;
 	exports com.qx.level0.io.csv.basic;
