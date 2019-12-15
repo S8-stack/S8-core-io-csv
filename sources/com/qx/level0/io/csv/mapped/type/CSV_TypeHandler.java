@@ -16,7 +16,8 @@ import com.qx.level0.io.csv.mapped.CSV_Mapping;
 public class CSV_TypeHandler {
 
 	
-
+	private Class<?> type;
+	
 	private Map<String, Getter> getters;
 
 	private Map<String, Setter> setters;
@@ -40,6 +41,7 @@ public class CSV_TypeHandler {
 	{
 		super();
 		
+		this.type = type;
 		
 		CSV_Mapping mappingAnnotation;
 
@@ -71,6 +73,10 @@ public class CSV_TypeHandler {
 		}
 	}
 
+	
+	public Class<?> getType(){
+		return type;
+	}
 	
 	public Getter getGetter(String tag) {
 		return getters.get(tag);

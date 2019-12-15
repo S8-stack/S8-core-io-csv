@@ -68,7 +68,13 @@ public class CSV_Engine<T> {
 
 
 
-	public T[] toArray(Class<?> type, InputStream inputStream) throws IOException {
+	/**
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
+	public T[] toArray(InputStream inputStream) throws IOException {
 		List<T> list = new ArrayList<T>();
 		for(T object : read(inputStream)) {
 			list.add(object);
@@ -76,10 +82,11 @@ public class CSV_Engine<T> {
 		int length = list.size();
 
 		@SuppressWarnings("unchecked")
-		T[] array = (T[]) Array.newInstance(type, length);
+		T[] array = (T[]) Array.newInstance(typeHandler.getType(), length);
 		list.toArray(array);
 		return array;
 	}
+	
 
 
 	/**
