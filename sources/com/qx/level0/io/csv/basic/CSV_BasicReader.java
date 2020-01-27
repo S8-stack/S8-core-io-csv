@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.qx.level0.utilities.units.Unit;
+import com.qx.level0.utilities.units.QxUnit;
 
 /**
  * 
@@ -26,12 +26,12 @@ public class CSV_BasicReader<T> {
 
 	public interface Getter {
 
-		public abstract String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException;
+		public abstract String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException;
 	}
 
 	public interface Setter {
 		
-		public abstract void set(String value, Object object, Unit unit)
+		public abstract void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
 
 	}
@@ -87,14 +87,14 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
-			field.setDouble(object, unit.toIS(Double.valueOf(value)));
+			field.setDouble(object, unit.revert(Double.valueOf(value)));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
-			return Double.toString(unit.fromIS(field.getDouble(object)));
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
+			return Double.toString(unit.convert(field.getDouble(object)));
 		}
 	}
 
@@ -106,14 +106,14 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
-			field.setFloat(object, (float) unit.toIS(Float.valueOf(value)));
+			field.setFloat(object, (float) unit.revert(Float.valueOf(value)));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
-			return Double.toString(unit.fromIS(field.getFloat(object)));
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
+			return Double.toString(unit.convert(field.getFloat(object)));
 		}
 	}
 
@@ -124,13 +124,13 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 			field.setInt(object, Integer.valueOf(value));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
 			return Integer.toString(field.getInt(object));
 		}
 	}
@@ -142,13 +142,13 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 			field.setLong(object, Long.valueOf(value));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
 			return Long.toString(field.getLong(object));
 		}
 	}
@@ -160,13 +160,13 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 			field.setShort(object, Short.valueOf(value));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
 			return Short.toString(field.getShort(object));
 		}
 	}
@@ -178,13 +178,13 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 			field.setBoolean(object, Boolean.valueOf(value));
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
 			return Boolean.toString(field.getBoolean(object));
 		}
 	}
@@ -196,13 +196,13 @@ public class CSV_BasicReader<T> {
 		}
 
 		@Override
-		public void set(String value, Object object, Unit unit)
+		public void set(String value, Object object, QxUnit unit)
 				throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
 			field.set(object, value);
 		}
 
 		@Override
-		public String get(Object object, Unit unit) throws IllegalArgumentException, IllegalAccessException {
+		public String get(Object object, QxUnit unit) throws IllegalArgumentException, IllegalAccessException {
 			return (String) field.get(object);
 		}
 	}
@@ -276,7 +276,7 @@ public class CSV_BasicReader<T> {
 					int n = headers.length;
 
 					Setter[] structure = new Setter[n];
-					Unit[] units = new Unit[n];
+					QxUnit[] units = new QxUnit[n];
 
 					String tag, unit;
 					for(int i=0; i<n; i++){
@@ -285,7 +285,7 @@ public class CSV_BasicReader<T> {
 						tag = matcher.group(1);
 						unit = matcher.group(3);
 						structure[i] = setters.get(tag);
-						units[i] = Unit.get(unit);
+						units[i] = QxUnit.getUnitByAbbreviation(unit);
 					}
 
 
