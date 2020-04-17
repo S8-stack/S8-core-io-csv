@@ -3,7 +3,6 @@ package com.qx.level0.io.csv;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import com.qx.level0.io.csv.CSV_Format;
 
 public class CSV_ColumnHeaders {
 
