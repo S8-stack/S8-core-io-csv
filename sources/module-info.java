@@ -1,17 +1,6 @@
-/**
- * 
- */
-/**
- * @author pc
- *
- */
-module com.qx.level0.io.csv {
+module com.s8.io.csv {
 	
-	exports com.qx.level0.io.csv;
-	exports com.qx.level0.io.csv.basic;
-	exports com.qx.level0.io.csv.mapped;
-	exports com.qx.level0.io.csv.mapped.type;
+	exports com.s8.io.csv;
+	exports com.s8.io.csv.type;
 	
-	requires transitive com.qx.level0.utilities;
-
 }
