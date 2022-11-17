@@ -3,12 +3,12 @@ package com.s8.io.csv.type.fields;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-import com.s8.io.csv.QxEnumerable;
-import com.s8.io.csv.QxEnumerable.Prototype;
+import com.s8.io.csv.CSV_Enumerable;
+import com.s8.io.csv.CSV_Enumerable.Prototype;
 
 public class QxEnumerableFieldMapping extends FieldMapping {
 	
-	private QxEnumerable.Prototype<? extends QxEnumerable> proto;
+	private CSV_Enumerable.Prototype<? extends CSV_Enumerable> proto;
 	
 	@SuppressWarnings("unchecked")
 	public QxEnumerableFieldMapping(Field field) 
@@ -16,19 +16,19 @@ public class QxEnumerableFieldMapping extends FieldMapping {
 		super(field);
 		Class<?> type = field.getType();
 		Field protoStaticField = type.getField("PROTOTYPE");
-		proto = (Prototype<? extends QxEnumerable>) protoStaticField.get(null);	
+		proto = (Prototype<? extends CSV_Enumerable>) protoStaticField.get(null);	
 	}
 
 	@Override
 	public String get(Object object) throws IllegalArgumentException, IllegalAccessException {
-		QxEnumerable enumerable = (QxEnumerable) field.get(object);
+		CSV_Enumerable enumerable = (CSV_Enumerable) field.get(object);
 		return enumerable.getName();
 	}
 
 	@Override
 	public void set(String value, Object object)
 			throws NumberFormatException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		QxEnumerable enumerable = proto.getByName(value);
+		CSV_Enumerable enumerable = proto.getByName(value);
 		field.set(object, enumerable);
 	}
 

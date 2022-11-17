@@ -1,8 +1,8 @@
 package com.s8.io.csv;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,9 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 
-public abstract class QxEnumerable {
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
+public abstract class CSV_Enumerable {
 
-	public static class Prototype<E extends QxEnumerable> {
+	public static class Prototype<E extends CSV_Enumerable> {
 		
 		private String doc;		
 
@@ -72,10 +77,12 @@ public abstract class QxEnumerable {
 		private void loadTable(Class<E> type, String tableFilename) {
 			
 			try {
-				InputStream inputStream = type.getResourceAsStream(tableFilename);
 
+				/* path */
+				Path path = Path.of(this.getClass().getClassLoader().getResource(tableFilename).toURI());
+				
 				CSV_Engine<E> engine = new CSV_Engine<E>(type);
-				List<E> enumerables = engine.toList(inputStream);
+				List<E> enumerables = engine.toList(path);
 				Integer maxCode = 0;
 				for(E item : enumerables) { maxCode = Math.max(maxCode, item.getCode()); }
 				
@@ -97,19 +104,13 @@ public abstract class QxEnumerable {
 				}
 				
 			} 
-			catch (NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			} 
-			catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			} 
-			catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} 
-			catch (IllegalAccessException e) {
+			catch (NoSuchMethodException 
+					| SecurityException 
+					| IOException 
+					| NoSuchFieldException 
+					| IllegalArgumentException 
+					| IllegalAccessException 
+					| URISyntaxException e) {
 				e.printStackTrace();
 			}
 		}
@@ -125,6 +126,6 @@ public abstract class QxEnumerable {
 	
 	public abstract String[] getNames();
 
-	public abstract Prototype<? extends QxEnumerable> getPrototype();
+	public abstract Prototype<? extends CSV_Enumerable> getPrototype();
 
 }

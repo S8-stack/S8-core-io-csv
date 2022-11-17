@@ -2,7 +2,7 @@ package com.s8.io.csv.type.fields;
 
 import java.lang.reflect.Field;
 
-import com.s8.io.csv.QxEnumerable;
+import com.s8.io.csv.CSV_Enumerable;
 import com.s8.io.csv.CSV_Unit;
 import com.s8.io.csv.type.Getter;
 import com.s8.io.csv.type.Setter;
@@ -47,7 +47,7 @@ public abstract class FieldMapping implements Getter, Setter {
 		else if(type.isEnum()){
 			return new EnumFieldMapping(field);
 		}
-		else if(QxEnumerable.class.isAssignableFrom(type)) {
+		else if(CSV_Enumerable.class.isAssignableFrom(type)) {
 			return new QxEnumerableFieldMapping(field);
 		}
 		else {

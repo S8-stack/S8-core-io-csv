@@ -1,12 +1,11 @@
 package com.s8.io.csv;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -97,43 +96,15 @@ public class CSV_Engine<T> {
 
 		this.unitsFactory = unitsFactory;
 	}
-
-
-
-
+	
 
 	/**
 	 * 
-	 * @param inputStream
+	 * @param headerLine
 	 * @return
 	 * @throws IOException
 	 */
-	public T[] toArray(InputStream inputStream) throws IOException {
-		List<T> list = new ArrayList<T>();
-		forEachRow(inputStream, object -> list.add(object));
-		int length = list.size();
-
-		@SuppressWarnings("unchecked")
-		T[] array = (T[]) Array.newInstance(typeHandler.getType(), length);
-		list.toArray(array);
-		return array;
-	}
-
-
-
-	/**
-	 * 
-	 * @param inputStream
-	 * @return
-	 * @throws IOException
-	 */
-	public void forEachRow(InputStream inputStream, CSV_Consumer<T> consumer) throws IOException {
-
-		// read headers
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-		String headerLine = reader.readLine();
+	private Setter[] parseHeader(String headerLine) throws IOException {
 		String[] headers = headerLine.split(DELIMITERS);
 		int n = headers.length;
 
@@ -150,21 +121,68 @@ public class CSV_Engine<T> {
 						(unit!=null && unitsFactory!=null) ? unitsFactory.getUnit(unit) : null);
 
 			}
+			return setters;
 		}
-		catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+		catch (NoSuchFieldException 
+				| SecurityException 
+				| IllegalArgumentException 
+				| IllegalAccessException e) {
 			e.printStackTrace();
 			throw new IOException(e.getMessage());
 		}
+	}
 
+
+
+
+
+
+	/**
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
+	public T[] toArray(Path path) throws IOException {
+		List<T> list = new ArrayList<T>();
+		forEachRow(path, object -> list.add(object));
+		int length = list.size();
+
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) Array.newInstance(typeHandler.getType(), length);
+		list.toArray(array);
+		return array;
+	}
+
+
+
+	/**
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
+	public void forEachRow(Path path, CSV_Consumer<T> consumer) throws IOException {
+
+		/* retrieve rows */
+		List<String> lines = Files.readAllLines(path);
+		int nRows = lines.size();
 		
-		String line = reader.readLine();
-		while(line!=null) {
+		
+		/* retrieve columns */
+		Setter[] setters = parseHeader(lines.get(0));
+		int nColumns = setters.length;
+		
+		
+		for(int iRow = 1; iRow < nRows; iRow++) {
+			String line = lines.get(iRow);
+			
 			T object = null;
 			try {
 				String[] values = line.split(DELIMITERS);
 				object = constructor.newInstance(new Object[]{});
-				for(int i=0; i<n; i++){
-					setters[i].set(values[i], object);
+				for(int iColumn = 0; iColumn < nColumns; iColumn++){
+					setters[iColumn].set(values[iColumn], object);
 				}
 			}
 			catch (InstantiationException 
@@ -176,9 +194,9 @@ public class CSV_Engine<T> {
 			}
 
 			consumer.consumeRow(object);
-			line = reader.readLine();
-		}
+		}	
 	}
+	
 	
 	
 	
@@ -188,9 +206,9 @@ public class CSV_Engine<T> {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<T> toList(InputStream inputStream) throws IOException {
+	public List<T> toList(Path path) throws IOException {
 		List<T> output = new ArrayList<T>();
-		forEachRow(inputStream, object -> output.add(object));
+		forEachRow(path, object -> output.add(object));
 		return output;
 	}
 }
