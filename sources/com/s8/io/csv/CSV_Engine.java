@@ -111,14 +111,18 @@ public class CSV_Engine<T> {
 		Setter[] setters = new Setter[n];
 
 		try {
-			String tag, unit;
+			String tag, unit, header;
 			for(int i=0; i<n; i++){
-				Matcher matcher = tagPattern.matcher(headers[i]);
+				Matcher matcher = tagPattern.matcher(header = headers[i]);
 				matcher.find();
 				tag = matcher.group(1);
 				unit = matcher.group(3);
-				setters[i] = typeHandler.getSetter(tag, 
+				Setter setter = typeHandler.getSetter(tag, 
 						(unit!=null && unitsFactory!=null) ? unitsFactory.getUnit(unit) : null);
+				if(setter == null) {
+					throw new IOException("Failed to find a match for header: "+header+" for type "+typeHandler.getType());
+				}
+				setters[i] = setter;
 
 			}
 			return setters;
