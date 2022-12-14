@@ -10,6 +10,14 @@ public interface CSV_Unit {
 	}
 	
 	
+	public final static CSV_Unit.Base STUB_FACTORY = new Base() {
+		@Override
+		public CSV_Unit getUnit(String abbreviation) {
+			throw new RuntimeException("Stub placeholder");
+		}
+	};
+	
+	
 	/**
 	 * 
 	 * @param value
