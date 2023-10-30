@@ -1,6 +1,6 @@
 package com.s8.io.csv.tests;
 
-import com.s8.io.csv.CSV_Mapping;
+import com.s8.core.io.csv.CSV_Mapping;
 
 /**
  * 

@@ -1,8 +1,12 @@
-module com.s8.io.csv {
+
+/**
+ * 
+ */
+module com.s8.core.io.csv {
 	
-	exports com.s8.io.csv;
-	exports com.s8.io.csv.type;
-	exports com.s8.io.csv.utilities;
+	exports com.s8.core.io.csv;
+	exports com.s8.core.io.csv.type;
+	exports com.s8.core.io.csv.utilities;
 	
 	
 }
